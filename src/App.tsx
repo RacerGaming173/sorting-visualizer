@@ -18,7 +18,7 @@ import { generateColor } from './utils/animation';
 import { AiFillCaretRight } from "react-icons/ai";
 
 // Algorithm name mapping
-const ALGORITHM_NAMES: Record<string> = {
+const ALGORITHM_NAMES: Record<keyof typeof bubbleSort, string> = {
   bubbleSort: 'Bubble Sort',
   selectionSort: 'Selection Sort',
   insertionSort: 'Insertion Sort',

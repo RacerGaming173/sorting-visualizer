@@ -18,11 +18,25 @@ export function ArraySettings({
   isSorting
 }: ArraySettingsProps): JSX.Element {
   const [generatedArray, setGeneratedArray] = useState<string>('');
+  const [size, setSize] = useState<number>(20);
+  const [maxValue, setMaxValue] = useState<number>(100);
 
   const handleGenerateArray = () => {
-    const options = { count: 5, max: 100 };
-    const arr = generateArray(options);
-    setGeneratedArray(JSON.stringify(arr));
+    if (size < 2 || size > 100000)  {
+      const input: HTMLInputElement = document.getElementById('array-size-input') as HTMLInputElement;
+      input.setCustomValidity("Please submit a size between 2 and 100000.");
+      input.reportValidity();
+    }
+    else if (maxValue < 1 || maxValue > 100000)  {
+      const input: HTMLInputElement = document.getElementById('max-value-input') as HTMLInputElement;
+      input.setCustomValidity("Please submit a maximum value between 1 and 100000.");
+      input.reportValidity();
+    }
+    else  {
+      const options: {count: number, max: number} = {count: size, max: maxValue};
+      const arr = generateArray(options);
+      setGeneratedArray(JSON.stringify(arr));
+    }
   };
 
   return (
@@ -30,18 +44,25 @@ export function ArraySettings({
 
       <div className='array-param'>
         <label htmlFor="array-size-input">Array Size</label>
-        <input type="number" id="array-size-input" min="2" max="100000" defaultValue="20"/>
-      </div>
-      <div className='array-param'>
-        <label htmlFor="min-value-input">Minimum Value</label>
-        <input type="number" id="min-value-input" min="0" max="100000" defaultValue="0"/>
+        <input 
+        type="number" 
+        id="array-size-input" 
+        min="2" max="100000" 
+        defaultValue={size} 
+        onChange={(e) => setSize(parseInt(e.target.value))}
+        />
       </div>
       <div className='array-param'>
         <label htmlFor="max-value-input">Maximum Value</label>
-        <input type="number" id="max-value-input" min="2" max="100000" defaultValue="100"/>
+        <input 
+        type="number" 
+        id="max-value-input" 
+        min="1" 
+        max="100000" 
+        defaultValue={maxValue} 
+        onChange={(e) => setMaxValue(parseInt(e.target.value))}/>
       </div>
       <button onClick={handleGenerateArray}>Generate Array</button>
-      {/* <p>{generatedArray || 'Press Generate Array to see output'}</p> */}
     </div>
   );
 }
