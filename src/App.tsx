@@ -1,10 +1,9 @@
-// Main App component for sorting visualizer
-// Integrates all components and manages overall state
-
 import { useState } from 'react';
-import { ControlPanel } from './components/ControlPanel';
+
+// Project-local dependencies
+import { ArraySettings } from './components/ArraySettings';
 import { SortSelector } from './components/SortSelector';
-import { ArrayGenerator } from './components/ArrayGenerator';
+import { ArrayGraphics } from './components/ArrayGraphics';
 import { generateArray, getArrayStats } from './utils/array';
 import {
   bubbleSort,
@@ -15,8 +14,11 @@ import {
 } from './utils/sorting';
 import { generateColor } from './utils/animation';
 
+// Icons
+import { AiFillCaretRight } from "react-icons/ai";
+
 // Algorithm name mapping
-const ALGORITHM_NAMES: Record<keyof typeof bubbleSort, string> = {
+const ALGORITHM_NAMES: Record<string> = {
   bubbleSort: 'Bubble Sort',
   selectionSort: 'Selection Sort',
   insertionSort: 'Insertion Sort',
@@ -47,7 +49,6 @@ interface AnimationState {
 }
 
 export default function App() {
-  // App state
   const [array, setArray] = useState<number[]>([]);
   const [arrayOptions, setArrayOptions] = useState<ArrayOptions>({
     count: 20,
@@ -83,10 +84,10 @@ export default function App() {
   // - Returns animation state
 
   return (
-    <div>
-      <SortSelector value={sortState.algorithm} onChange={(alg) => {}} />
-      <ArrayGenerator {...{} } />
-      <ControlPanel {...{}} />
+    <div className="grid-container">
+      <SortSelector value={sortState.algorithm} onChange={(alg) => setSortState({algorithm: alg })} />
+      <ArraySettings {...{}} />
+      <ArrayGraphics {...{} } />
     </div>
   );
 }

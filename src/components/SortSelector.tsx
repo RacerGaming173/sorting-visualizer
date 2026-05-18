@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import '../index.css';
+import '../styles/SortSelector.css';
 
 type SortAlgorithm = 'bubble' | 'selection' | 'insertion' | 'merge' | 'quick';
 
@@ -17,38 +16,26 @@ const sortAlgorithms = [
 ];
 
 export function SortSelector({ value, onChange }: SortSelectorProps): JSX.Element {
-  const [isOpen, setIsOpen] = useState(false);
 
   const handleSelect = (algorithm: SortAlgorithm) => {
     onChange(algorithm);
-    setIsOpen(false);
   };
 
   return (
-    <>
-      <button
-        className="sort-selector-btn"
-        onClick={() => setIsOpen(!isOpen)}
-        style={{ textAlign: 'center' }}
+    <div className="sort-selector-container">
+      <label htmlFor="sort-algorithm-select">Choose Sorting Algorithm </label>
+      <select
+        id="sort-algorithm-select"
+        value={value}
+        onChange={(e) => handleSelect(e.target.value as SortAlgorithm)}
       >
-        Choose Sorting Algorithm
-      </button>
-
-      {isOpen && (
-        <div className="sort-selector-dropdown">
-          {sortAlgorithms.map((alg) => (
-            <div
-              key={alg.value}
-              className={`sort-selector-item ${value === alg.value ? 'active' : ''}`}
-              onMouseEnter={(e: React.MouseEvent) => { e.currentTarget.style.cursor = 'pointer'; }}
-              onClick={() => handleSelect(alg.value)}
-            >
-              {alg.label}
-            </div>
-          ))}
-        </div>
-      )}
-    </>
+        {sortAlgorithms.map((alg) => (
+          <option key={alg.value} value={alg.value}>
+            {alg.label}
+          </option>
+        ))}
+      </select>
+    </div>
   );
 }
 

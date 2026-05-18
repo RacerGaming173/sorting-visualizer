@@ -1,0 +1,13 @@
+.sort-selector-container  {
+  display: grid;
+  align-items: center;
+  grid-template-rows: repeat(2, max-content);
+}
+
+.sort-selector-container label  {
+  font-size: 15px;
+}
+
+.sort-selector-container select {
+  background-color: #1a1a1a;
+}

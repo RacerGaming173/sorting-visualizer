@@ -1,6 +1,3 @@
-// Array generator component - generate and display arrays for sorting
-// Shows bars visually representing values
-
 import { useState, useCallback } from 'react';
 import { useAnimation } from '../../utils/animation';
 import { generateArray, getArrayStats } from '../../utils/array';
@@ -11,7 +8,7 @@ export type ArrayOptions = {
   min: number;
 };
 
-interface ArrayGeneratorProps {
+interface ArrayGraphicsProps {
   value: number[];
   stats: { min: number; max: number; sum: number; average: number };
   onUpdate: (index: number, value: number, duration: number) => void;
@@ -21,7 +18,7 @@ interface ArrayGeneratorProps {
   onCloseAnimation: () => void;
 }
 
-export function ArrayGenerator({
+export function ArrayGraphics({
   value,
   stats,
   onUpdate,
@@ -29,7 +26,7 @@ export function ArrayGenerator({
   onGenerateRandom,
   animationComplete,
   onCloseAnimation
-}: ArrayGeneratorProps): JSX.Element {
+}: ArrayGraphicsProps): JSX.Element {
   // TODO: implement array visualization component
   // Features:
   // - Display bars representing array values

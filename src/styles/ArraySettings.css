@@ -1,0 +1,15 @@
+.array-settings-container  {
+  display: grid;
+  align-items: center;
+  grid-template-columns: repeat(4, max-content);
+  background-color: black;
+}
+
+.array-settings-container button  {
+  font-size: 15px;
+}
+
+.array-param label  {
+  display: block;
+  font-size: 15px;
+}
