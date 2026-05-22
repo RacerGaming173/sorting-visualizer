@@ -1,6 +1,6 @@
 import '../styles/SortSelector.css';
 
-type SortAlgorithm = 'bubble' | 'selection' | 'insertion' | 'merge' | 'quick';
+export type SortAlgorithm = 'bubble' | 'selection' | 'insertion' | 'merge' | 'quick';
 
 interface SortSelectorProps {
   value: SortAlgorithm;
@@ -23,7 +23,7 @@ export function SortSelector({ value, onChange }: SortSelectorProps): JSX.Elemen
 
   return (
     <div className="sort-selector-container">
-      <label htmlFor="sort-algorithm-select">Choose Sorting Algorithm </label>
+      <label htmlFor="sort-algorithm-select">Choose Sorting Algorithm</label>
       <select
         id="sort-algorithm-select"
         value={value}

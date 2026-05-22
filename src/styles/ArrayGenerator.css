@@ -1,11 +1,10 @@
-.array-settings-container  {
+.array-generator-container  {
   display: grid;
   align-items: center;
   grid-template-columns: repeat(3, max-content);
-  background-color: black;
 }
 
-.array-settings-container button  {
+.array-generator-container button  {
   font-size: 15px;
 }
 

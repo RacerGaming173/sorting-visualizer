@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
 // Project-local dependencies
-import { ArraySettings } from './components/ArraySettings';
-import { SortSelector } from './components/SortSelector';
+import { ArrayGenerator } from './components/ArrayGenerator';
+import { SortSelector, SortAlgorithm } from './components/SortSelector';
 import { ArrayGraphics } from './components/ArrayGraphics';
-import { generateArray, getArrayStats } from './utils/array';
+import { generateArray, ArrayOptions } from './utils/array';
 import {
   bubbleSort,
   selectionSort,
@@ -36,7 +36,7 @@ const ALGORITHM_FUNCS = {
 };
 
 interface SortState {
-  algorithm: 'bubble' | 'selection' | 'insertion' | 'merge' | 'quick';
+  algorithm: SortAlgorithm;
 }
 
 interface AnimationState {
@@ -51,15 +51,9 @@ interface AnimationState {
 export default function App() {
   const [array, setArray] = useState<number[]>([]);
   const [arrayOptions, setArrayOptions] = useState<ArrayOptions>({
-    count: 20,
+    size: 20,
     max: 100
   });
-  const [stats, setStats] = useState<{
-    min: number;
-    max: number;
-    sum: number;
-    average: number;
-  }>({ min: 0, max: 0, sum: 0, average: 0 });
   const [sortState, setSortState] = useState<SortState>({
     algorithm: 'bubble'
   });
@@ -72,21 +66,17 @@ export default function App() {
     isFinished: false
   });
 
-  // TODO: Implement sort function that:
-  // - Calls the selected sorting algorithm on a copy of the array
-  // - Animates bar colors during sort
-  // - Reports completion when done
-
-  // TODO: Implement generateArray function that:
-  // - Generates array based on options
-  // - Sets array state
-  // - Updates stats
-  // - Returns animation state
-
   return (
     <div className="grid-container">
-      <SortSelector value={sortState.algorithm} onChange={(alg) => setSortState({algorithm: alg })} />
-      <ArraySettings {...{}} />
+      <SortSelector 
+      value={sortState.algorithm}
+      onChange={(alg) => setSortState({algorithm: alg })} />
+      <ArrayGenerator
+      options={arrayOptions}
+      onChangeSize={(size) => setArrayOptions({...arrayOptions, size})}
+      onChangeMax={(max) => setArrayOptions({...arrayOptions, max})}
+      onGenerateArray={() => setArray(generateArray(arrayOptions))}
+      />
       <ArrayGraphics {...{} } />
     </div>
   );
