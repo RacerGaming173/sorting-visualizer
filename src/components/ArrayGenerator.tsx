@@ -34,7 +34,7 @@ export function ArrayGenerator({
       input.reportValidity();
     }
     else  {
-      onGenerateArray(options);
+      onGenerateArray();
     }
   };
 

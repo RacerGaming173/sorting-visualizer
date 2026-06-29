@@ -1,40 +1,55 @@
-import { useState, useCallback } from 'react';
-import { useAnimation } from '../../utils/animation';
-import { generateArray, getArrayStats } from '../../utils/array';
+import '../styles/ArrayGraphics.css';
 
-export type ArrayOptions = {
-  count: number;
-  max: number;
-  min: number;
-};
+interface HighlightData {
+  comparing: [number, number] | null;
+  swapped: boolean;
+  sortedPrefix: number;
+}
 
 interface ArrayGraphicsProps {
-  value: number[];
-  stats: { min: number; max: number; sum: number; average: number };
-  onUpdate: (index: number, value: number, duration: number) => void;
-  onGenerateArray: () => void;
-  onGenerateRandom: () => void;
-  animationComplete: boolean;
-  onCloseAnimation: () => void;
+  array: number[];
+  highlightData: HighlightData | null;
 }
 
 export function ArrayGraphics({
-  value,
-  stats,
-  onUpdate,
-  onGenerateArray,
-  onGenerateRandom,
-  animationComplete,
-  onCloseAnimation
+  array,
+  highlightData
 }: ArrayGraphicsProps): JSX.Element {
-  // TODO: implement array visualization component
-  // Features:
-  // - Display bars representing array values
-  // - Show color coding based on sort state
-  // - Display array values as text (optional)
-  // - Generate array button
-  // - Generate random button
-  // - Statistics display (min, max, average)
+  const max = Math.max(...array, 1);
+  const hd = highlightData;
 
-  return <div>Array Generator</div>;
+  return (
+    <div className="array-graphics-container">
+      {array.map((value, index) => {
+        const isComparing = hd !== null && hd.comparing !== null
+          && (index === hd.comparing[0] || index === hd.comparing[1]);
+        const isSwapped = isComparing && hd !== null && hd.swapped;
+        const isInSorted = hd !== null && index < hd.sortedPrefix;
+
+        let bgColor = '#ffffff';
+        if (isSwapped) {
+          bgColor = '#ff6b6b';       // swapped — red
+        } else if (isComparing) {
+          bgColor = '#ffd93d';       // comparing — yellow
+        } else if (isInSorted) {
+          bgColor = '#6bcb77';       // sorted — green
+        }
+
+        return (
+          <div
+            key={index}
+            title={`[${index}]: ${value}`}
+            className="array-bar"
+            style={{
+              height: `${(value / max) * 100}%`,
+              minHeight: '1px',
+              background: bgColor,
+              borderRadius: '3px 3px 0 0',
+              transition: 'height 0.1s ease, background 0.1s ease',
+            }}
+          />
+        );
+      })}
+    </div>
+  );
 }

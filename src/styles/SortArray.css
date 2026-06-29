@@ -1,0 +1,31 @@
+.sort-array-container {
+  display: grid;
+  align-items: center;
+  grid-template-rows: repeat(2, max-content);
+  grid-template-columns: repeat(1, max-content);
+  gap: 8px;
+}
+
+.sort-array-container button {
+  font-size: 15px;
+  padding: 8px 24px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.sort-array-container button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.array-size {
+  font-size: 14px;
+  color: #666;
+}
+
+.array-param label {
+  display: block;
+  font-size: 15px;
+}

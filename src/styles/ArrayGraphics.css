@@ -1,0 +1,17 @@
+.array-graphics-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 700px;
+  padding: 16px;
+  border-radius: 8px;
+  width: min-content;
+  /* no background */
+}
+
+.array-bar {
+  flex: 0 0 4px;
+  min-width: 4px;
+  max-width: 4px;
+  transition: height 0.1s ease, background 0.15s ease;
+}

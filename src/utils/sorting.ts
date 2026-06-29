@@ -1,19 +1,59 @@
+/**
+ * Represents a single step in the sorting animation.
+ * Each step captures the full array state plus metadata for highlighting.
+ */
+export interface AnimationStep {
+  array: number[];
+  comparing: [number, number] | null;
+  sortedPrefix: number;
+}
+
+/**
+ * Records one step into the steps array.
+ */
+function recordStep(
+  steps: AnimationStep[],
+  array: number[],
+  comparing: [number, number] | null,
+  sortedPrefix: number
+): void {
+  steps.push({
+    array: [...array],
+    comparing,
+    sortedPrefix,
+  });
+}
+
 export function bubbleSort(arr: number[]): number[] {
   // TODO: implement
   return arr;
 }
 
 export function selectionSort(arr: number[]): number[] {
-  for (let i = 0; i < arr.length-1; i++) {
-    let min = arr[i];
+  const steps: AnimationStep[] = [];
 
-    for (let j = i+1; j < arr.length; j++)  {
-      if (arr[j] < min) {
-        min = arr[j];
+  for (let i = 0; i < arr.length - 1; i++) {
+    let minIdx = i;
+
+    for (let j = i + 1; j < arr.length; j++) {
+      recordStep(steps, arr, [i, j], i);
+      if (arr[j] < arr[minIdx]) {
+        minIdx = j;
+        recordStep(steps, arr, [i, j], i);
       }
     }
+    let temp = arr[i];
+    arr[i] = arr[minIdx];
+    arr[minIdx] = temp;
   }
+
+  (selectionSort as any).__steps = steps;
   return arr;
+}
+
+export function animatedSelectionSort(arr: number[]): AnimationStep[] {
+  selectionSort(arr);
+  return (selectionSort as any).__steps || [];
 }
 
 export function insertionSort(arr: number[]): number[] {
