@@ -8,7 +8,8 @@ import { ArrayGraphics } from './components/ArrayGraphics';
 import { generateArray, ArrayOptions } from './utils/array';
 import {
   AnimationStep as AnimatedStep,
-  animatedSelectionSort
+  animatedSelectionSort,
+  animatedBubbleSort
 } from './utils/sorting';
 
 interface SortState {
@@ -47,7 +48,10 @@ export default function App() {
       case 'selection':
         steps = animatedSelectionSort(arr);
         break;
-      // TODO: animatedBubbleSort, animatedInsertionSort, animatedMergeSort, animatedQuickSort
+      case 'bubble':
+        steps = animatedBubbleSort(arr);
+        break;
+      // TODO: animatedInsertionSort, animatedMergeSort, animatedQuickSort
       default:
         steps = [];
         break;

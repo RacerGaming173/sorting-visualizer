@@ -2,7 +2,6 @@ import '../styles/ArrayGraphics.css';
 
 interface HighlightData {
   comparing: [number, number] | null;
-  swapped: boolean;
   sortedPrefix: number;
 }
 
