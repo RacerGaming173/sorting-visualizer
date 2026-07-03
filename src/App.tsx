@@ -9,7 +9,8 @@ import { generateArray, ArrayOptions } from './utils/array';
 import {
   AnimationStep as AnimatedStep,
   animatedSelectionSort,
-  animatedBubbleSort
+  animatedBubbleSort,
+  animatedInsertionSort
 } from './utils/sorting';
 
 interface SortState {
@@ -51,7 +52,10 @@ export default function App() {
       case 'bubble':
         steps = animatedBubbleSort(arr);
         break;
-      // TODO: animatedInsertionSort, animatedMergeSort, animatedQuickSort
+      case 'insertion':
+        steps = animatedInsertionSort(arr);
+        break;      
+      // TODO: animatedMergeSort, animatedQuickSort
       default:
         steps = [];
         break;

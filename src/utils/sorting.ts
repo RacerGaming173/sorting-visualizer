@@ -39,7 +39,6 @@ export function bubbleSort(arr: number[]): number[] {
         let temp = arr[i];
         arr[i] = arr[i+1];
         arr[i+1] = temp;
-        // recordStep(steps, arr, [i, i+1], i);
       }
     }
   } while (swapOccurred);
@@ -80,8 +79,27 @@ export function animatedSelectionSort(arr: number[]): AnimationStep[] {
 }
 
 export function insertionSort(arr: number[]): number[] {
-  // TODO: implement
+  const steps: AnimationStep[] = [];
+  
+  for (let i = 1; i < arr.length; i++)  {
+    let j = i-1;
+    let refPoint = arr[i];
+    while (j >= 0 && refPoint < arr[j]) {
+      recordStep(steps, arr, [i, j], i);
+      arr[j+1] = arr[j];
+      j--;
+    }
+    arr[j+1] = refPoint;
+    recordStep(steps, arr, [i, j], i);
+  }
+  
+  (insertionSort as any).__steps = steps;
   return arr;
+}
+
+export function animatedInsertionSort(arr: number[]): AnimationStep[] {
+  insertionSort(arr);
+  return (insertionSort as any).__steps || [];
 }
 
 export function mergeSort(arr: number[]): number[] {
